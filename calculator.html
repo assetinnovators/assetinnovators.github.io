@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator</title>
+    <link rel="stylesheet" href="https://assetinnovators.com/style.css">
+    <style>
+        body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    width: 500px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.button-container {
+    display: flex;
+    justify-content:flex-start;
+    margin-top: 20px;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button-container button:first-child { /* style for calculate button */
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button-container button:last-child { /* style for reset button */
+    background-color: #f0ad4e;
+    color: white;
+}
+
+.button-container button:hover { /* hover effect for buttons */
+    opacity: 0.8;
+}
+
+.go-back-icon {
+    text-decoration: none;
+    color: #ccc;
+}
+
+.go-back-icon i {
+    font-size: 20px;
+}
+
+.go-back-icon:hover {
+    color: #000;
+}
+
+/* Responsive media queries */
+
+@media only screen and (max-width: 768px) {
+    .container {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    .input-field {
+        margin-bottom: 10px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container button {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+    
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Investment Calculator</h1>
+        <form id="calculator-form">
+            <div class="input-field">
+                <!--<label for="principal">Monthly Contribution in 1st Year</label>-->
+                <input type="text" id="principal" name="principal" placeholder="Initial Investment">
+            </div>
+            <div class="input-field">
+                <!--<label for="interest">Interest Rate (%)</label>-->
+                <input type="text" id="interest" name="interest" placeholder="Interest Rate (%)">
+            </div>
+            <div class="input-field">
+                <!--<label for="years">No. of Years</label>-->
+                <input type="text" id="years" name="years" placeholder="No. of Years">
+            </div>
+            <div class="button-container">
+                <button type="button" onclick="calculate()">Calculate</button>
+                <button type="reset">Reset</button>
+                <a href="index.html" style="margin:0px 5px; background-color:#ffc400; padding:10px 20px; color:#fff; ">Back</a>
+                <a href="calculator.html#" class="go-back-icon">
+                    <i class="fas fa-arrow-left"></i> </a>
+            </div>
+            <div class="output">
+                <p>Maturity amount (Yearly):</p>
+                <p id="amountAnnually"></p>
+                <p style="display:none">Maturity amount (Quarterly) :</p>
+                <p id="amountQuarterly"  style="display:none"></p>
+                <p  style="display:none">Maturity amount (Monthly):</p>
+                <p id="amountMonthly"  style="display:none"></p>
+            </div>
+        </form>
+    </div>
+    <script src="https://kit.fontawesome.com/your_fontawesome_kit_id.js" crossorigin="anonymous"></script> </body>
+    <script>
+        function calculate() {
+  const principal = parseFloat(document.getElementById("principal").value);
+  const interest = parseFloat(document.getElementById("interest").value) / 100;
+  const years = parseFloat(document.getElementById("years").value);
+  
+
+  // Calculate compound interest
+  const amountAnnually = principal * Math.pow(1 + interest, years);
+  const amountQuarterly = principal * Math.pow(1 + interest/4, years*4);
+  const amountMonthly = principal * Math.pow(1 + interest/12, years*12);
+
+  // Format the output with commas for readability
+  const formattedAmountAnnually = amountAnnually.toLocaleString("en-IN", { style: "currency", currency: "INR" });
+  const formattedAmountQuarterly = amountQuarterly.toLocaleString("en-IN", { style: "currency", currency: "INR" });
+  const formattedAmountMonthly = amountMonthly.toLocaleString("en-IN", { style: "currency", currency: "INR" });
+
+  // Update the output element
+  document.getElementById("amountAnnually").textContent = formattedAmountAnnually;
+  document.getElementById("amountQuarterly").textContent = formattedAmountQuarterly;
+  document.getElementById("amountMonthly").textContent = formattedAmountMonthly;
+  
+}
+   
+
+
+    </script>
+</html>
